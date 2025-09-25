@@ -36,5 +36,4 @@ module "network" {
   vpc_cidr      = var.vpc_cidr
   environment   = var.environment
 
-
 }
