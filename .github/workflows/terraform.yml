@@ -13,6 +13,9 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform  # adjust if your .tf files are here
 
     steps:
       - name: Checkout code
