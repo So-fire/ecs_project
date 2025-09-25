@@ -3,8 +3,6 @@ locals {
   ACCOUNTID        = data.aws_caller_identity.current.account_id
   INFO_EMAIL       = "safespace196@gmail.com"
 
-
-
   common_tags = {
     environment = var.ENV
     project     = "ECS_PROJECT"
