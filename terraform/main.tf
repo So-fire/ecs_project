@@ -35,6 +35,10 @@ module "network" {
   project_name  = var.project_name
   vpc_cidr      = var.vpc_cidr
   environment   = var.environment
-
-
 }
+
+module "webapp_ecr" {
+  source          = "./module/ecr"
+  repo_name       = var.repo_name
+}
+
