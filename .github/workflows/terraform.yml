@@ -34,6 +34,9 @@ jobs:
         with:
           terraform_version: 1.9.5  # pick the version you need
 
+      - name: Terraform Format
+        run: terraform fmt -recursive
+
       # Init
       - name: Terraform Init
         run: terraform init
