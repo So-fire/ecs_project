@@ -28,17 +28,17 @@ locals {
 #   OIDC_ROLE_NAME                             = module.role.OIDC_ROLE_NAME 
 # }
 
-module "network" {
-  source = "./module/network"
+# module "network" {
+#   source = "./module/network"
 
-  default_route = var.default_route
-  project_name  = var.project_name
-  vpc_cidr      = var.vpc_cidr
-  environment   = var.environment
-}
+#   default_route = var.default_route
+#   project_name  = var.project_name
+#   vpc_cidr      = var.vpc_cidr
+#   environment   = var.environment
+# }
 
-module "webapp_ecr" {
-  source          = "./module/ecr"
-  repo_name       = var.repo_name
-}
+# module "webapp_ecr" {
+#   source          = "./module/ecr"
+#   repo_name       = var.repo_name
+# }
 
