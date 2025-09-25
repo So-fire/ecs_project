@@ -1,0 +1,53 @@
+name: Terraform Deploy
+
+on:
+  push:
+    branches:
+      - main   # run on pushes to main
+  pull_request: # optional: validate plans on PRs
+
+permissions:
+  id-token: write   # required for OIDC
+  contents: read    # required to checkout code
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Authenticate to AWS using OIDC
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::741651907804:role/GitHubActionsOIDC
+          aws-region: us-east-1
+
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5  # pick the version you need
+
+      # Init
+      - name: Terraform Init
+        run: terraform init
+
+      # Format check
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      # Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Plan (for visibility in Actions UI)
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      # Apply only on push to main
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve tfplan
